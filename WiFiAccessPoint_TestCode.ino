@@ -95,6 +95,7 @@ void loop() {
               digitalWrite(LedBlue,HIGH);
               digitalWrite(LedGreen,HIGH);
               delay(5000);             // GET /H turns the LED on
+              digitalWrite(LedRed,HIGH); 
         }
         if (currentLine.endsWith("GET /LEAVE")) {
               digitalWrite(Motor,LOW);
@@ -102,13 +103,15 @@ void loop() {
               digitalWrite(LedBlue,LOW);
               digitalWrite(LedGreen,HIGH);
               delay(4000);              // GET /L turns the LED off
+              digitalWrite(LedBlue,HIGH); 
         }
         if (currentLine.endsWith("GET /HI")) {
               digitalWrite(Motor,LOW);
               digitalWrite(LedRed, HIGH);
               digitalWrite(LedBlue,HIGH);
               digitalWrite(LedGreen,LOW);
-              delay(4000);              
+              delay(4000);
+              digitalWrite(LedGreen,HIGH);              
         }
         if (currentLine.endsWith("GET /SILENT")){
           
