@@ -18,6 +18,7 @@ int CurrentPattern = 0;
 unsigned long PatternTime = 0;
 
 void setup() {
+  Serial.begin(115200);
   pinMode(buttonPin, INPUT);
   pinMode(ledPin, OUTPUT);
   pinMode(ButtonInput, INPUT);
