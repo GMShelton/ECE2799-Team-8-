@@ -32,23 +32,29 @@ void setup() {
 }
 
 void loop() {
+  //delay(1000);
   int reading = digitalRead(ButtonInput);
   Serial.println(reading);
-  Serial.println(digitalRead(lastButtonState));
-  if (reading != lastButtonState) {
+  //Serial.println(digitalRead(lastButtonState));
+  if (reading == lastButtonState) {
     lastDebounceTime = millis();
+    Serial.println("First IF");
   }
 
   if ((millis() - lastDebounceTime) > debounceDelay) {
     CurrentPattern ++;
     Serial.println(CurrentPattern);
-    //PatternTime = millis();
-     //if (PatternTime > PatterenDelay) {
+    Serial.println("Second IF");
+    PatternTime = millis();
+     if (PatternTime > PatterenDelay) {
       if (reading != buttonState) {
       buttonState = reading;
+      Serial.println("Third IF");
       // only toggle the LED if the new button state is HIGH
       if (buttonState == HIGH) {
+        Serial.println("Fourth IF");
         if (CurrentPattern == 1){
+          Serial.println("Fifth IF");
         Serial.println("One push.");
         digitalWrite(LedBlue, LOW);
         digitalWrite(LedRed, HIGH);
@@ -60,6 +66,7 @@ void loop() {
         CurrentPattern = 0;
       }
         if (CurrentPattern >= 2){
+          Serial.println("Sixth IF");
           Serial.println("two push");
         digitalWrite(LedBlue, HIGH);
         digitalWrite(LedRed, HIGH);
@@ -72,7 +79,7 @@ void loop() {
       }
       
      }
-      //}
+      }
    
   }
 
