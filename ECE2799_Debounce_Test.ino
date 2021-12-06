@@ -25,9 +25,10 @@ void setup() {
   pinMode(LedBlue, OUTPUT);
   pinMode(LedRed, OUTPUT);
   pinMode(LedGreen,OUTPUT);
-  digitalWrite(LedBlue, LOW); 
-  digitalWrite(LedRed, LOW);
-  digitalWrite(LedGreen, LOW);
+  digitalWrite(LedBlue, HIGH); 
+  digitalWrite(LedRed, HIGH);
+  digitalWrite(LedGreen, HIGH);
+  digitalWrite(ButtonInput, LOW);
 }
 
 void loop() {
@@ -44,7 +45,6 @@ void loop() {
      if (PatternTime > PatterenDelay) {
       if (reading != buttonState) {
       buttonState = reading;
-
       // only toggle the LED if the new button state is HIGH
       if (buttonState == HIGH) {
         if (CurrentPattern = 1){
