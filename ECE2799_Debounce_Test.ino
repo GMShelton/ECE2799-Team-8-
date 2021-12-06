@@ -8,7 +8,7 @@ const int ledPin = 13;
 #define ButtonInput 34
 
 int ledState = HIGH;         
-int buttonState;             
+int buttonState = HIGH;             
 int lastButtonState = LOW;   
 
 unsigned long lastDebounceTime = 0;  
@@ -33,7 +33,8 @@ void setup() {
 
 void loop() {
   int reading = digitalRead(ButtonInput);
-  Serial.println(digitalRead(ButtonInput));
+  Serial.println(reading);
+  Serial.println(digitalRead(lastButtonState));
   if (reading != lastButtonState) {
     lastDebounceTime = millis();
   }
