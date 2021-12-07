@@ -49,6 +49,10 @@ void setup() {
   pinMode(LedBlue, OUTPUT);
   pinMode(LedGreen, OUTPUT);
   pinMode(ButtonInput,INPUT);
+  digitalWrite(LedRed, HIGH);
+  digitalWrite(LedBlue,LOW);
+  digitalWrite(LedGreen,HIGH);
+  
           
 }
 
@@ -94,24 +98,32 @@ void loop() {
               digitalWrite(LedRed, LOW);
               digitalWrite(LedBlue,HIGH);
               digitalWrite(LedGreen,HIGH);
-              delay(5000);             // GET /H turns the LED on
+              delay(5000);             
               digitalWrite(LedRed,HIGH); 
+              digitalWrite(Motor,LOW);
         }
         if (currentLine.endsWith("GET /LEAVE")) {
-              digitalWrite(Motor,LOW);
+              digitalWrite(Motor,HIGH);
               digitalWrite(LedRed, HIGH);
               digitalWrite(LedBlue,LOW);
               digitalWrite(LedGreen,HIGH);
-              delay(4000);              // GET /L turns the LED off
+              delay(250);              
+              digitalWrite(Motor,LOW);
+              delay(250);
+              digitalWrite(Motor,HIGH);
+              delay(250);
+              digitalWrite(Motor,LOW); 
+              delay(750);
               digitalWrite(LedBlue,HIGH); 
         }
         if (currentLine.endsWith("GET /HI")) {
-              digitalWrite(Motor,LOW);
+              digitalWrite(Motor,HIGH);
               digitalWrite(LedRed, HIGH);
               digitalWrite(LedBlue,HIGH);
               digitalWrite(LedGreen,LOW);
-              delay(4000);
-              digitalWrite(LedGreen,HIGH);              
+              delay(1000);
+              digitalWrite(LedGreen,HIGH);  
+              digitalWrite(Motor,LOW);            
         }
         if (currentLine.endsWith("GET /SILENT")){
           
