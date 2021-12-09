@@ -1,4 +1,4 @@
-
+//Change the Freq from 80 to 40. this is done in tools, by where the port is selected
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WiFiAP.h>
