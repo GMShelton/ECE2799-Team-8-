@@ -6,6 +6,8 @@
 #include <Arduino.h>
 #include <EasyButton.h>
 
+//Make another version of this and have 2 seperate servers. One code will run a server and connect tot the other and vise versa
+
 #define LedRed 4
 #define LedBlue 0
 #define LedGreen 2
@@ -23,7 +25,7 @@ EasyButton button(ButtonInput,35,false,false); //Name(Button_pin,Debounce_Delay,
 #define LED_BUILTIN 2 
 
 TaskHandle_t Task1;
-TaskHandle_t Task2;
+
 
 WiFiServer server(80);
 const char *ssid = "yourAP";
@@ -50,16 +52,6 @@ void setup() {
                     0);          /* pin task to core 0 */                  
   delay(500); 
 
-  //create a task that will be executed in the Task2code() function, with priority 1 and executed on core 1
-  xTaskCreatePinnedToCore(
-                    Task2code,   /* Task function. */
-                    "Task2",     /* name of task. */
-                    10000,       /* Stack size of task */
-                    NULL,        /* parameter of the task */
-                    1,           /* priority of the task */
-                    &Task2,      /* Task handle to keep track of created task */
-                    1);          /* pin task to core 1 */
-    delay(500); 
 
 
   pinMode(Motor,OUTPUT);
@@ -68,7 +60,7 @@ void setup() {
   pinMode(LedGreen, OUTPUT);
   pinMode(ButtonInput,INPUT);
   digitalWrite(LedRed, HIGH);
-  digitalWrite(LedBlue,HIGH);
+ digitalWrite(LedBlue,HIGH);
   digitalWrite(LedGreen,HIGH);
 
   pinMode(LED_BUILTIN, OUTPUT);
@@ -102,7 +94,18 @@ void Task1code( void * pvParameters ){
   Serial.println(xPortGetCoreID());
 
   for(;;){
-    WiFiClient client = server.available();   // listen for incoming clients
+  button.read();
+  vTaskDelay(10);
+  } 
+}
+
+
+
+void loop() //Not used
+{
+ 
+
+   WiFiClient client = server.available();   // listen for incoming clients
 
   if (client) {                             // if you get a client,
     Serial.println("New Client.");           // print a message out the serial port
@@ -201,21 +204,6 @@ void Task1code( void * pvParameters ){
     client.stop();
     Serial.println("Client Disconnected.");
   }
-  } 
-}
-
-//Task2code: When button is pushed run the motor, when not pushed turn blue
-void Task2code( void * pvParameters ){
-  Serial.print("Task2 running on core ");
-  Serial.println(xPortGetCoreID());
-
-  for(;;){
-   button.read();
-  }
-}
-
-void loop() //Not used
-{
 }
 
 void sendSignal(char* ssid, char* password, String func){
