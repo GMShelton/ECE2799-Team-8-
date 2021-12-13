@@ -1,3 +1,4 @@
+
 //Change the Freq from 80 to 40. this is done in tools, by where the port is selected
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -31,11 +32,6 @@ WiFiServer server(80);
 const char *ssid = "yourAP";
 const char *password = "yourPassword";
 
-//Adding PWM so the LEDs don't blow each other out
-//const int freq = 5000;
-//const int ledChannel = 0;
-//const int resolution = 8;
-//Setup for the mutlithread stuff
 void setup() {
   Serial.begin(115200);
   Serial.print("setup() running on core ");
@@ -60,7 +56,7 @@ void setup() {
   pinMode(LedGreen, OUTPUT);
   pinMode(ButtonInput,INPUT);
   digitalWrite(LedRed, HIGH);
- digitalWrite(LedBlue,HIGH);
+  digitalWrite(LedBlue,HIGH);
   digitalWrite(LedGreen,HIGH);
 
   pinMode(LED_BUILTIN, OUTPUT);
@@ -101,10 +97,9 @@ void Task1code( void * pvParameters ){
 
 
 
-void loop() //Not used
+void loop() 
 {
  
-
    WiFiClient client = server.available();   // listen for incoming clients
 
   if (client) {                             // if you get a client,
@@ -217,7 +212,7 @@ void sendSignal(char* ssid, char* password, String func){
   }  
   delay(5);
   const uint16_t port = 80;
-  const char * host = "192.168.4.1"; // ip or dns
+  const char * host = "192.168.1.1"; // ip or dns
   
   // Use WiFiClient class to create TCP connections
   

@@ -28,7 +28,7 @@ TaskHandle_t Task1;
 
 
 WiFiServer server(80);
-const char *ssid = "yourAP";
+const char *ssid = "YourAP";
 const char *password = "yourPassword";
 
 //Adding PWM so the LEDs don't blow each other out
@@ -69,13 +69,18 @@ void setup() {
   Serial.println("Configuring access point...");
 
   // You can remove the password parameter if you want the AP to be open.
-  WiFi.softAP(ssid);
+  IPAddress Ip(192, 168, 1, 1);
+  IPAddress NMask(255, 255, 255, 0);
+
+  WiFi.softAPConfig(Ip, Ip, NMask);
   IPAddress myIP = WiFi.softAPIP();
+  Serial.println();
   Serial.print("AP IP address: ");
   Serial.println(myIP);
   server.begin();
 
   Serial.println("Server started");
+  Serial.println(ssid);
 
   button.begin();
 
