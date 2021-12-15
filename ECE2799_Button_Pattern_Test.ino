@@ -21,5 +21,15 @@ ButtonState = digitalRead(ButtonInput);
   if (ButtonState == HIGH) {
     digitalWrite(Motor,HIGH);
     digitalWrite(LedBlue,HIGH);
+    digitalWrite(LedGreen, LOW);
+    digitalWrite(LedRed, HIGH);
     delay(2000);
+   
+}
+if (ButtonState == LOW) {
+  digitalWrite(Motor,LOW);
+  digitalWrite(LedBlue, LOW);
+  digitalWrite(LedGreen, HIGH);
+  digitalWrite(LedRed, HIGH);
+}
 }
