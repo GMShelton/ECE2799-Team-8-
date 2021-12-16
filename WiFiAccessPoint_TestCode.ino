@@ -19,6 +19,8 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WiFiAP.h>
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 
 #define LED_BUILTIN 2   // Set the GPIO pin where you connected your test LED or comment this line out if your dev board has a built-in LED
 
@@ -30,6 +32,7 @@ WiFiServer server(80);
 
 
 void setup() {
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
   pinMode(LED_BUILTIN, OUTPUT);
 
   Serial.begin(115200);
@@ -52,7 +55,8 @@ void setup() {
   digitalWrite(LedRed, HIGH);
   digitalWrite(LedBlue,HIGH);
   digitalWrite(LedGreen,HIGH);
-  
+  delay(500);
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 1);
           
 }
 
