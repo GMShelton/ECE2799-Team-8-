@@ -9,6 +9,8 @@
 #include <EasyButton.h>
 #include <WiFi.h>
 #include <WiFiMulti.h>
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 
 // Arduino pin where the button is connected to.
 #define BUTTON_PIN 34
@@ -17,6 +19,7 @@
 #define LedGreen 2
 #define Motor 33
 #define BAUDRATE 115200
+
 
 int ButtonPattern = 0;
 int PressTime = 500; // Allows time for button pushes
@@ -29,6 +32,7 @@ EasyButton button(BUTTON_PIN,35,false,false); //Name(Button_pin,Debounce_Delay,p
 
 void setup()
 {
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
   pinMode(LedBlue, OUTPUT);
   pinMode(LedRed, OUTPUT);
   pinMode(LedGreen,OUTPUT);
@@ -49,6 +53,8 @@ void setup()
   button.onSequence(2, 2000, leave);
 
   button.onPressedFor(1000, emergency);
+   delay(500);
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 1);
 
 
 }
